@@ -1,0 +1,28 @@
+### Pagination spec [GET /pagination]
+
+This document describes the common standard for handling 2 query parameters: limit and page used for endpoints that return lists
+
+* **limit (number, optional)**
+    - Meaning: Maximum number of elements returned per page
+    - Default: Environment variable value [DEFAULT_PAGE_SIZE] (if [Parameters.limit] is not specified, use default value)
+    - Min: 1
+    - Max: Environment variable value [MAX_PAGE_SIZE] (if exceeded, return 422 error)
+* **page (number, optional)**
+    - Meaning: Specify the page number to return. (starts from 1)
+    - Default: 1 (if [Parameters.page] is not specified, use default value)
+    - Min: 1
+* Among records that meet search conditions, only return records with order from (([page]-1) * [limit])+1 to record number [page] * [limit]
+    * Example: [Parameters.page] = 3 & [Parameters.limit] = 20 → Return records from 41st to 60th
+
++ Response 200 (application/json)
+    + Attributes (object)
+        + total: 100 (number, required) - Total number of users
+        + page: 1 (number, required) - Current page
+        + limit: 20 (number, required) - Items per page
+        + data (array, optional)
+            + (object)
+                + id: 123 (number, required) - User ID
+                + name: `John Doe` (string, required) - Full name
+                + email: `john@example.com` (string, required) - Email address
+                + age: 25 (number, optional) - Age in years
+                + created_at: `2023-10-01T10:00:00Z` (string, required) - Creation timestamp

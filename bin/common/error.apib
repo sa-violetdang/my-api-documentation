@@ -1,0 +1,42 @@
+### Error format [GET /error]
+
+Standard error responses for reuse.
+
+**Error response structure:**
+* `message`: Error message for user
+* `details`: Validation error details (optional, only for 422)
+
++ Response 400 (application/json)
+    + Attributes (object)
+        + message: `Invalid request format` (string, required) - Message
+
++ Response 401 (application/json)
+    + Attributes (object)
+        + message: `Unauthorized` (string, required) - Message
+
++ Response 403 (application/json)
+    + Attributes (object)
+        + message: `Forbidden` (string, required) - Message
+
++ Response 404 (application/json)
+    + Attributes (object)
+        + message: `Resource not found` (string, required) - Message
+
++ Response 422 (application/json)
+    + Attributes (object)
+        + message: `Validation failed` (string, required) - Message
+        + details (array, optional) - Validation errors
+            + (object)
+                + field: `email` (string, required) - Field name
+                + error: `Invalid email format` (string, required) - Error message
+            + (object)
+                + field: `name` (string, required) - Field name  
+                + error: `Name is required` (string, required) - Error message
+
++ Response 429 (application/json)
+    + Attributes (object)
+        + message: `Too many requests` (string, required) - Message
+
++ Response 500 (application/json)
+    + Attributes (object)
+        + message: `Internal server error` (string, required) - Message

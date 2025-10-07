@@ -1,0 +1,36 @@
+### orderUpdateStatus [PATCH /orders/{id}/status]
+
+* Update the order status to the specified status
+
+#### Validation
+
+* Get [orders] record that satisfies all conditions below. If no record exists, return 404 error
+    * [orders.id] === [Parameters.id]
+    * [orders.deleted_at] === null
+* Check required:
+    * [Request.status]
+* Check value list:
+    * If [Request.status] NOT IN ('pending','confirmed','processing','packing','shipped','delivered','completed','canceled'), return 422 error
+
+#### Save Processing
+
+* Update [orders] record where [orders.id] === [Parameters.id]
+    * [status] = [Request.status]
+
++ Parameters
+    + id: 1 (number, required) - Order ID
+
++ Request (application/json)
+    + Attributes (object)
+        + status: `canceled` (enum, required) - Status
+            + Members
+                + `pending` - Pending
+                + `confirmed` - Confirmed
+                + `processing` - Processing
+                + `packing` - Packing
+                + `shipped` - Shipped
+                + `delivered` - Delivered
+                + `completed` - Completed
+                + `canceled` - Canceled
+
++ Response 204

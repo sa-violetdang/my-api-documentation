@@ -1,0 +1,28 @@
+### userUpdate [PUT]
+
+* Update user information by [users.id] based on the received information
+
+#### Validation
+
+* Get [users] record that satisfies all conditions below. If no record exists, return 404 error
+    * [users.id] === [Parameters.id]
+    * [users.deleted_at] === null
+* Same as [userCreate](#user-usercreate-post)
+
+#### Save Processing
+
+* Update [users] record where [users.id] === [Parameters.id]
+    * [name] = [Request.name]
+    * [email] = [Request.email]
+    * [age] = [Request.age]
+
++ Parameters
+    + id: 1 (number, required) - User ID
+
++ Request (application/json)
+    + Attributes (object)
+        + name: `John Doe` (string, required) - Full name
+        + email: `john@index.com` (string, required) - Email address
+        + age: 25 (number, optional) - Age in years
+
++ Response 204

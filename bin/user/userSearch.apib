@@ -1,0 +1,32 @@
+### userSearch [GET /users{?name,email,ageFrom,ageTo,page,limit}]
+
+* Search for users in the system based on specified criteria
+
+#### Search Processing
+
+* [Parameters.name]: Add search condition [users.name] LIKE '%[Parameter.name]%'
+* [Parameters.email]: Add search condition [users.email] LIKE '%[Parameter.email]%'
+* [Parameters.ageFrom]: Add search condition [users.age] >= %[Parameter.ageFrom]%
+* [Parameters.ageTo]: Add search condition [users.age] <= %[Parameter.ageTo]%
+* [Parameters.page], [Parameters.limit]: See [Common pagination spec](#pagination)
+
++ Parameters
+    + name: `John` (string, optional) - Name
+    + email: `john@example.com` (string, optional) - Email address
+    + ageFrom: 18 (number, optional) - Age from
+    + ageTo: 25 (number, optional) - Age to
+    + page: 1 (number, optional) - Page number
+    + limit: 20 (number, optional) - Items per page
+
++ Response 200 (application/json)
+    + Attributes (object)
+        + total: 100 (number, required) - Total number of users
+        + page: 1 (number, required) - Current page
+        + limit: 20 (number, required) - Items per page
+        + data (array, optional)
+            + (object)
+                + id: 123 (number, required) - User ID
+                + name: `John Doe` (string, required) - Full name
+                + email: `john@example.com` (string, required) - Email address
+                + age: 25 (number, optional) - Age in years
+                + created_at: `2023-10-01T10:00:00Z` (string, required) - Creation timestamp

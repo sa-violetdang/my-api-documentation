@@ -1,0 +1,38 @@
+### orderCreate [POST /orders]
+
+* Create a new order associated with the logged-in user based on received information
+
+#### Validation
+
+* Check required:
+    * [Request.details] (array must not be empty)
+* Check for each detail item:
+    * [Request.details.product_id]: required, must be valid product ID
+    * [Request.details.unit_price]: required, positive number
+    * [Request.details.quantity]: required, positive integer
+
+#### Save Processing
+
+* Insert new record into [orders] table
+    * [total_amount] = Sum of [Request.details.unit_price]*[Request.details.quantity] for all [Request.details] objects
+    * [created_by] = [users.id] of logged-in user
+    * [status] = 'pending'
+
+* Insert new records into [order_details] table equal to number of [Request.details] objects received
+    * [order_id] = newly created [orders.id] from above
+    * [product_id] = [Request.details.product_id]
+    * [unit_price] = [Request.details.unit_price]
+    * [quantity] = [Request.details.quantity]
+    * [amount] = [Request.details.unit_price]*[Request.details.quantity]
+
++ Request (application/json)
+    + Attributes (object)
+        + details (array, required)
+            + (object)
+                + product_id: 12 (number, required) - Product ID
+                + unit_price: 1000 (number, required) - Current unit price
+                + quantity: 15 (number, required) - Quantity
+
++ Response 201 (application/json)
+    + Attributes (object)
+        + id: 1 (number, required) - User ID

@@ -1,0 +1,33 @@
+### userCreate [POST /users]
+
+* Create a new user based on the received information
+
+#### Validation
+
+* Check required:
+    * [Request.name]
+    * [Request.email]
+* Check length:
+    * [Request.name]: max 50
+    * [Request.email]: max 255
+    * [Request.age]: max 3
+* Check format:
+    * [Request.email]: RFC standard email format
+    * [Request.age]: positive integer only
+
+#### Save Processing
+
+* Insert new record into [users] table
+    * [name] = [Request.name]
+    * [email] = [Request.email]
+    * [age] = [Request.age]
+
++ Request (application/json)
+    + Attributes (object)
+        + name: `John Doe` (string, required) - Full name
+        + email: `john@index.com` (string, required) - Email address
+        + age: 25 (number, optional) - Age in years
+
++ Response 201 (application/json)
+    + Attributes (object)
+        + id: 1 (number, required) - User ID

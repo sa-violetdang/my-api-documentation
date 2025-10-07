@@ -1,0 +1,19 @@
+### userDelete [DELETE]
+
+* Delete user information by [users.id]
+
+#### Validation
+
+* Get [users] record that satisfies all conditions below. If no record exists, return 404 error
+    * [users.id] === [Parameters.id]
+    * [users.deleted_at] === null
+
+#### Delete Processing
+
+* Update [users] record where [users.id] === [Parameters.id]
+    * [deleted_at] = system datetime
+
++ Parameters
+    + id: 1 (number, required) - User ID
+
++ Response 204

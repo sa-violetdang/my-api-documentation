@@ -1,0 +1,24 @@
+FORMAT: 1A
+HOST: https://api.example.com
+
+# My API Documentation
+This is an API template for reference purposes only.
+
+# Group Common
+<!-- include(bin/common/error.apib) -->
+<!-- include(bin/common/pagination.apib) -->
+
+# Group User
+User management in the system
+<!-- include(bin/user/userSearch.apib) -->
+<!-- include(bin/user/userCreate.apib) -->
+
+## userById [/users/{id}]
+<!-- include(bin/user/userGetById.apib) -->
+<!-- include(bin/user/userUpdate.apib) -->
+<!-- include(bin/user/userDelete.apib) -->
+
+# Group Order
+Order management
+<!-- include(bin/order/orderCreate.apib) -->
+<!-- include(bin/order/orderUpdateStatus.apib) -->

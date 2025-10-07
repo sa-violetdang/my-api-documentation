@@ -1,0 +1,28 @@
+### userGetById [GET]
+
+* Get user information by [users.id]
+
+#### Validation
+
+* Get [users] record that satisfies all conditions below. If no record exists, return 404 error
+    * [users.id] === [Parameters.id]
+    * [users.deleted_at] === null
+
+#### Data Return Processing
+
+* [Response.order_count] = Number of [orders] records that satisfy all following conditions
+    * [orders.created_by] === [Parameters.id]
+    * [orders.deleted_at] === null
+* Other response fields return values from columns with the same name in [users] table
+
++ Parameters
+    + id: 1 (number, required) - User ID
+
++ Response 200 (application/json)
+    + Attributes (object)
+        + id: 123 (number, required) - User ID
+        + name: `John Doe` (string, required) - Full name
+        + email: `john@example.com` (string, required) - Email address
+        + age: 25 (number, optional) - Age in years
+        + order_count: 10 (number, required) - Number of orders made by this user
+        + created_at: `2023-10-01T10:00:00Z` (string, required) - Creation timestamp
